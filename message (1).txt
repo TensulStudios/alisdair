@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Your Name - Portfolio</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background: #000000;
+                color: #ffffff;
+                line-height: 1.6;
+                overflow-x: hidden;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Animated Background */
+            .bg-animation {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(ellipse at 30% 20%, rgba(120, 50, 255, 0.15) 0%, transparent 50%),
+                            radial-gradient(ellipse at 70% 80%, rgba(0, 255, 200, 0.15) 0%, transparent 50%),
+                            radial-gradient(ellipse at 50% 50%, rgba(255, 50, 150, 0.1) 0%, transparent 50%);
+                z-index: -2;
+            }
+
+            .bg-animation::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-image: 
+                    linear-gradient(rgba(120, 50, 255, 0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(120, 50, 255, 0.02) 1px, transparent 1px);
+                background-size: 50px 50px;
+                animation: gridMove 20s linear infinite;
+            }
+
+            @keyframes gridMove {
+                0% { transform: translate(0, 0); }
+                100% { transform: translate(50px, 50px); }
+            }
+
+            /* Floating orbs */
+            .orb {
+                position: fixed;
+                border-radius: 50%;
+                filter: blur(80px);
+                opacity: 0.6;
+                z-index: -1;
+                animation: float 20s ease-in-out infinite;
+            }
+
+            .orb1 {
+                width: 400px;
+                height: 400px;
+                background: radial-gradient(circle, rgba(120, 50, 255, 0.4), transparent);
+                top: 10%;
+                left: 10%;
+                animation-delay: 0s;
+            }
+
+            .orb2 {
+                width: 500px;
+                height: 500px;
+                background: radial-gradient(circle, rgba(0, 255, 200, 0.3), transparent);
+                bottom: 20%;
+                right: 10%;
+                animation-delay: 5s;
+            }
+
+            .orb3 {
+                width: 350px;
+                height: 350px;
+                background: radial-gradient(circle, rgba(255, 50, 150, 0.35), transparent);
+                top: 50%;
+                left: 50%;
+                animation-delay: 10s;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translate(0, 0) scale(1); }
+                33% { transform: translate(30px, -30px) scale(1.1); }
+                66% { transform: translate(-30px, 30px) scale(0.9); }
+            }
+
+            /* Main Container */
+            .container {
+                max-width: 600px;
+                width: 90%;
+                padding: 3rem 0;
+                animation: fadeInUp 1s ease-out;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(40px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Profile Section */
+            .profile {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .avatar {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                margin: 0 auto 1.5rem;
+                background: linear-gradient(135deg, #7832ff, #00ffc8, #ff3296);
+                padding: 3px;
+                box-shadow: 0 20px 60px rgba(120, 50, 255, 0.4);
+                animation: pulse 3s ease-in-out infinite;
+            }
+
+            .avatar img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(120, 50, 255, 0.4); }
+                50% { transform: scale(1.05); box-shadow: 0 25px 70px rgba(120, 50, 255, 0.6); }
+            }
+
+            .name {
+                font-size: 2.5rem;
+                font-weight: 900;
+                letter-spacing: -2px;
+                background: linear-gradient(135deg, #ffffff, #7832ff, #00ffc8);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 0.5rem;
+            }
+
+            .bio {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 1rem;
+                font-weight: 300;
+                letter-spacing: 0.5px;
+                margin-bottom: 2rem;
+            }
+
+            .badges {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .badge {
+                padding: 0.5rem 1.2rem;
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.8);
+                transition: all 0.3s;
+            }
+
+            .badge:hover {
+                background: rgba(120, 50, 255, 0.2);
+                border-color: rgba(120, 50, 255, 0.5);
+                transform: translateY(-2px);
+            }
+
+            /* Links Section */
+            .links {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .link-card {
+                background: rgba(255, 255, 255, 0.02);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem 2rem;
+                border-radius: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                text-decoration: none;
+                color: #ffffff;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .link-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, rgba(120, 50, 255, 0.1), rgba(0, 255, 200, 0.1));
+                opacity: 0;
+                transition: opacity 0.3s;
+                border-radius: 20px;
+            }
+
+            .link-card:hover {
+                transform: translateY(-5px);
+                border-color: rgba(120, 50, 255, 0.5);
+                box-shadow: 0 20px 60px rgba(120, 50, 255, 0.3);
+            }
+
+            .link-card:hover::before {
+                opacity: 1;
+            }
+
+            .link-icon {
+                font-size: 2rem;
+                position: relative;
+                z-index: 1;
+                filter: drop-shadow(0 0 10px rgba(120, 50, 255, 0.5));
+            }
+
+            .link-content {
+                flex: 1;
+                position: relative;
+                z-index: 1;
+            }
+
+            .link-title {
+                font-size: 1.1rem;
+                font-weight: 700;
+                margin-bottom: 0.3rem;
+                letter-spacing: -0.5px;
+            }
+
+            .link-desc {
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.5);
+                font-weight: 300;
+            }
+
+            .link-arrow {
+                font-size: 1.2rem;
+                color: rgba(255, 255, 255, 0.3);
+                position: relative;
+                z-index: 1;
+                transition: all 0.3s;
+            }
+
+            .link-card:hover .link-arrow {
+                color: rgba(255, 255, 255, 0.8);
+                transform: translateX(5px);
+            }
+
+            /* Social Links */
+            .social-section {
+                margin-top: 3rem;
+                text-align: center;
+            }
+
+            .social-title {
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.4);
+                font-weight: 600;
+                margin-bottom: 1.5rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                font-size: 1.5rem;
+                transition: all 0.3s;
+            }
+
+            .social-link:hover {
+                background: rgba(120, 50, 255, 0.2);
+                border-color: rgba(120, 50, 255, 0.5);
+                box-shadow: 0 10px 30px rgba(120, 50, 255, 0.3);
+                transform: translateY(-5px);
+            }
+
+            /* Footer */
+            footer {
+                text-align: center;
+                margin-top: 3rem;
+                padding-top: 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            footer p {
+                color: rgba(255, 255, 255, 0.3);
+                font-size: 0.85rem;
+                font-weight: 300;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .container {
+                    width: 95%;
+                }
+
+                .name {
+                    font-size: 2rem;
+                }
+
+                .link-card {
+                    padding: 1.2rem 1.5rem;
+                }
+
+                .link-icon {
+                    font-size: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="bg-animation"></div>
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+
+        <div class="container">
+            <!-- Profile Section -->
+            <div class="profile">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/947510375539155024/662650944fdfe84ee54f41ab7a3961e3.webp?size=512" alt="Profile Avatar">
+                </div>
+                <h1 class="name">Alisdair</h1>
+                <p class="bio">VR Unity Developer & 3D Modeler</p>
+                <div class="badges">
+                    <span class="badge">VR Developer</span>
+                    <span class="badge">Game Designer</span>
+                    <span class="badge">Tech Enthusiast</span>
+                </div>
+            </div>
+
+            <!-- Main Links -->
+            <div class="links">
+                <a href="https://spirestudios.online/" class="link-card" target="_blank">
+                    <div class="link-icon">🚀</div>
+                    <div class="link-content">
+                        <div class="link-title">Spire Studios</div>
+                        <div class="link-desc">Immersive VR Games, straight to your Meta device.</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+
+                <a href="https://your-projects-link.com" class="link-card" target="_blank">
+                    <div class="link-icon">🎯</div>
+                    <div class="link-content">
+                        <div class="link-title">Current Projects</div>
+                        <div class="link-desc">My current projects & goals.</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-section">
+                <div class="social-title">Socials</div>
+                <div class="social-links">
+                    <a href="https://discord.gg/ABnhsn7pQs" class="social-link" target="_blank" title="Discord Server">💬</a>
+                    <a href="mailto:contact@spirestudios.online?" class="social-link" target="_blank" title="Email">✉️</a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <p>© 2025 Spire Studios. All rights reserved.</p>
+                Site Hosted by Temporary Studios
+            </footer>
+        </div>
+    </body>
+</html>
