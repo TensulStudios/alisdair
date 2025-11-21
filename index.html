@@ -359,6 +359,11 @@
         <div class="orb orb2"></div>
         <div class="orb orb3"></div>
 
+        <!-- Background Music -->
+        <div id="music-player" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+            <iframe id="youtube-player" width="0" height="0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+
         <div class="container">
             <!-- Profile Section -->
             <div class="profile">
@@ -410,7 +415,28 @@
                 Site Hosted by <a style="text-decoration: none; color: gray;" href="https://temp.spirestudios.online/">Temporary Studios</a>
             </footer>
         </div>
+
+        <script>
+            // Array of YouTube video IDs
+            const songs = [
+                'em934mwdrlA',
+                'OdoOjIPhTh8',
+                'DyfTybEBQT0',
+                'kK0Vd3daL_o',
+                'cfeg_fv5H2g',
+                'vYQwqe3w9Ug',
+                'mqEZcXdtAUA',
+                'KB5TKob9PeA',
+                'hs57himZrfc'
+            ];
+
+            // Select a random song
+            const randomSong = songs[Math.floor(Math.random() * songs.length)];
+            
+            // Set the iframe source with autoplay
+            const player = document.getElementById('youtube-player');
+            player.src = `https://www.youtube.com/embed/${randomSong}?autoplay=1&loop=1&playlist=${randomSong}`;
+        </script>
     </body>
 
 </html>
-
