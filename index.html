@@ -301,6 +301,10 @@
                 position: relative;
                 z-index: 1;
                 filter: drop-shadow(0 0 10px rgba(120, 50, 255, 0.5));
+                color: rgba(255, 255, 255, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .link-content {
@@ -328,11 +332,19 @@
                 position: relative;
                 z-index: 1;
                 transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .link-card:hover .link-arrow {
                 color: rgba(255, 255, 255, 0.8);
                 transform: translateX(5px);
+            }
+
+            .link-card:hover .link-icon {
+                color: rgba(255, 255, 255, 1);
+                filter: drop-shadow(0 0 15px rgba(120, 50, 255, 0.8));
             }
 
             /* Social Links */
@@ -369,6 +381,7 @@
                 justify-content: center;
                 text-decoration: none;
                 font-size: 1.5rem;
+                color: rgba(255, 255, 255, 0.8);
                 transition: all 0.3s;
             }
 
@@ -377,6 +390,7 @@
                 border-color: rgba(120, 50, 255, 0.5);
                 box-shadow: 0 10px 30px rgba(120, 50, 255, 0.3);
                 transform: translateY(-5px);
+                color: #ffffff;
             }
 
             /* Music Control */
@@ -489,21 +503,41 @@
             <!-- Main Links -->
             <div class="links">
                 <a href="https://spirestudios.online/" class="link-card" target="_blank">
-                    <div class="link-icon">🚀</div>
+                    <div class="link-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                        </svg>
+                    </div>
                     <div class="link-content">
                         <div class="link-title">Spire Studios</div>
                         <div class="link-desc">Immersive VR Games, straight to your Meta device.</div>
                     </div>
-                    <div class="link-arrow">→</div>
+                    <div class="link-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
                 </a>
 
                 <a href="https://spirestudios.online/#games" class="link-card" target="_blank">
-                    <div class="link-icon">🎯</div>
+                    <div class="link-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                    </div>
                     <div class="link-content">
                         <div class="link-title">Current Projects</div>
                         <div class="link-desc">My current projects & goals.</div>
                     </div>
-                    <div class="link-arrow">→</div>
+                    <div class="link-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
                 </a>
             </div>
 
@@ -511,8 +545,16 @@
             <div class="social-section">
                 <div class="social-title">Socials</div>
                 <div class="social-links">
-                    <a href="https://discord.gg/ABnhsn7pQs" class="social-link" target="_blank" title="Discord Server">💬</a>
-                    <a href="mailto:contact@spirestudios.online?" class="social-link" target="_blank" title="Email">✉️</a>
+                    <a href="https://discord.gg/ABnhsn7pQs" class="social-link" target="_blank" title="Discord Server">
+                        <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor">
+                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:contact@spirestudios.online?" class="social-link" target="_blank" title="Email">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
 
