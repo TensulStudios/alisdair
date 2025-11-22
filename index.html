@@ -320,6 +320,20 @@
                 color: rgba(255, 255, 255, 0.9);
             }
 
+            /* Mouse Glow Effect */
+            .mouse-glow {
+                position: fixed;
+                width: 400px;
+                height: 400px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: opacity 0.3s ease;
+                mix-blend-mode: screen;
+            }
+
             /* Responsive */
             @media (max-width: 1024px) {
                 .content-wrapper {
@@ -371,6 +385,9 @@
         </style>
     </head>
     <body>
+        <!-- Mouse Glow Effect -->
+        <div class="mouse-glow" id="mouse-glow"></div>
+
         <!-- Entry Overlay -->
         <div class="entry-overlay" id="entry-overlay">
             <div class="entry-text">ALISDAIR</div>
@@ -505,6 +522,27 @@
                     isPlaying = false;
                 }
             });
+
+            // Mouse glow effect
+            const mouseGlow = document.getElementById('mouse-glow');
+            let mouseX = 0;
+            let mouseY = 0;
+            let glowX = 0;
+            let glowY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateGlow() {
+                glowX += (mouseX - glowX) * 0.15;
+                glowY += (mouseY - glowY) * 0.15;
+                mouseGlow.style.left = glowX + 'px';
+                mouseGlow.style.top = glowY + 'px';
+                requestAnimationFrame(animateGlow);
+            }
+            animateGlow();
         </script>
     </body>
 </html>
