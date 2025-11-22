@@ -3,9 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Alisdair - Portfolio</title>
+        <title>Alisdair - VR Developer</title>
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
             * {
                 margin: 0;
@@ -15,87 +15,67 @@
 
             body {
                 font-family: 'Inter', sans-serif;
-                background: #000000;
+                background: #0a0a0a;
                 color: #ffffff;
                 line-height: 1.6;
                 overflow-x: hidden;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
 
-            /* Animated Background */
-            .bg-animation {
+            /* Animated Grid Background */
+            .grid-bg {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: radial-gradient(ellipse at 30% 20%, rgba(120, 50, 255, 0.15) 0%, transparent 50%),
-                            radial-gradient(ellipse at 70% 80%, rgba(0, 255, 200, 0.15) 0%, transparent 50%),
-                            radial-gradient(ellipse at 50% 50%, rgba(255, 50, 150, 0.1) 0%, transparent 50%);
-                z-index: -2;
-            }
-
-            .bg-animation::before {
-                content: "";
-                position: absolute;
-                width: 100%;
-                height: 100%;
                 background-image: 
-                    linear-gradient(rgba(120, 50, 255, 0.02) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(120, 50, 255, 0.02) 1px, transparent 1px);
-                background-size: 50px 50px;
-                animation: gridMove 20s linear infinite;
+                    linear-gradient(rgba(60, 60, 60, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(60, 60, 60, 0.05) 1px, transparent 1px);
+                background-size: 80px 80px;
+                z-index: -2;
+                animation: gridScroll 80s linear infinite;
             }
 
-            @keyframes gridMove {
+            @keyframes gridScroll {
                 0% { transform: translate(0, 0); }
-                100% { transform: translate(50px, 50px); }
+                100% { transform: translate(80px, 80px); }
             }
 
-            /* Floating orbs */
-            .orb {
+            /* Scanning line effect */
+            .scan-line {
                 position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                z-index: 9999;
+                animation: scan 12s linear infinite;
+            }
+
+            @keyframes scan {
+                0% { transform: translateY(0); opacity: 0; }
+                10% { opacity: 0.5; }
+                90% { opacity: 0.5; }
+                100% { transform: translateY(100vh); opacity: 0; }
+            }
+
+            /* Glowing orb */
+            .glow-orb {
+                position: fixed;
+                width: 600px;
+                height: 600px;
                 border-radius: 50%;
-                filter: blur(80px);
-                opacity: 0.6;
+                background: radial-gradient(circle, rgba(60, 60, 80, 0.08), transparent 70%);
+                filter: blur(60px);
+                pointer-events: none;
                 z-index: -1;
-                animation: float 20s ease-in-out infinite;
+                animation: orbFloat 40s ease-in-out infinite;
             }
 
-            .orb1 {
-                width: 400px;
-                height: 400px;
-                background: radial-gradient(circle, rgba(120, 50, 255, 0.4), transparent);
-                top: 10%;
-                left: 10%;
-                animation-delay: 0s;
-            }
-
-            .orb2 {
-                width: 500px;
-                height: 500px;
-                background: radial-gradient(circle, rgba(0, 255, 200, 0.3), transparent);
-                bottom: 20%;
-                right: 10%;
-                animation-delay: 5s;
-            }
-
-            .orb3 {
-                width: 350px;
-                height: 350px;
-                background: radial-gradient(circle, rgba(255, 50, 150, 0.35), transparent);
-                top: 50%;
-                left: 50%;
-                animation-delay: 10s;
-            }
-
-            @keyframes float {
-                0%, 100% { transform: translate(0, 0) scale(1); }
-                33% { transform: translate(30px, -30px) scale(1.1); }
-                66% { transform: translate(-30px, 30px) scale(0.9); }
+            @keyframes orbFloat {
+                0%, 100% { transform: translate(-50%, -50%) scale(1); }
+                50% { transform: translate(-40%, -40%) scale(1.1); }
             }
 
             /* Entry Overlay */
@@ -105,7 +85,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.7);
+                background: rgba(10, 10, 10, 0.97);
                 backdrop-filter: blur(10px);
                 display: flex;
                 flex-direction: column;
@@ -113,7 +93,7 @@
                 justify-content: center;
                 z-index: 10000;
                 cursor: pointer;
-                transition: opacity 0.8s ease, visibility 0.8s ease;
+                transition: opacity 1.5s ease, visibility 1.5s ease;
             }
 
             .entry-overlay.hidden {
@@ -123,502 +103,434 @@
             }
 
             .entry-text {
-                font-size: 3rem;
-                font-weight: 900;
+                font-size: 2rem;
+                font-weight: 600;
                 color: #ffffff;
                 margin-bottom: 1rem;
-                animation: textPulse 2s ease-in-out infinite;
-                letter-spacing: -2px;
-            }
-
-            @keyframes textPulse {
-                0%, 100% { 
-                    transform: scale(1);
-                    text-shadow: 0 0 20px rgba(120, 50, 255, 0.5);
-                }
-                50% { 
-                    transform: scale(1.05);
-                    text-shadow: 0 0 40px rgba(120, 50, 255, 0.8);
-                }
+                letter-spacing: 0.1em;
             }
 
             .entry-subtext {
-                font-size: 1.2rem;
-                color: rgba(255, 255, 255, 0.8);
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.4);
                 font-weight: 300;
-                animation: fadeInOut 2s ease-in-out infinite;
             }
 
-            @keyframes fadeInOut {
-                0%, 100% { opacity: 0.6; }
-                50% { opacity: 1; }
-            }
-
-            .main-content {
-                opacity: 1;
-            }
-
-            /* Main Container */
+            /* Container */
             .container {
-                max-width: 600px;
-                width: 90%;
-                padding: 3rem 0;
-                animation: fadeInUp 1s ease-out;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
             }
 
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(40px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            .content-wrapper {
+                max-width: 1200px;
+                width: 100%;
+                display: grid;
+                grid-template-columns: 400px 1fr;
+                gap: 4rem;
+                align-items: start;
             }
 
-            /* Profile Section */
-            .profile {
-                text-align: center;
-                margin-bottom: 3rem;
+            /* Left Profile Card */
+            .profile-card {
+                background: rgba(15, 15, 15, 0.5);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 2.5rem;
+                backdrop-filter: blur(10px);
+                position: sticky;
+                top: 2rem;
+            }
+
+            .avatar-container {
+                position: relative;
+                width: 160px;
+                height: 160px;
+                margin: 0 auto 2rem;
+            }
+
+            .avatar-glow {
+                display: none;
             }
 
             .avatar {
-                width: 120px;
-                height: 120px;
+                position: relative;
+                width: 160px;
+                height: 160px;
                 border-radius: 50%;
-                margin: 0 auto 1.5rem;
-                background: linear-gradient(135deg, #7832ff, #00ffc8, #ff3296);
-                padding: 3px;
-                box-shadow: 0 20px 60px rgba(120, 50, 255, 0.4);
-                animation: pulse 3s ease-in-out infinite;
+                overflow: hidden;
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                z-index: 1;
             }
 
             .avatar img {
                 width: 100%;
                 height: 100%;
-                border-radius: 50%;
                 object-fit: cover;
             }
 
-            @keyframes pulse {
-                0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(120, 50, 255, 0.4); }
-                50% { transform: scale(1.05); box-shadow: 0 25px 70px rgba(120, 50, 255, 0.6); }
-            }
-
             .name {
-                font-size: 2.5rem;
-                font-weight: 900;
-                letter-spacing: -2px;
-                background: linear-gradient(135deg, #ffffff, #7832ff, #00ffc8);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                margin-bottom: 0.5rem;
+                font-size: 1.8rem;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 0.3rem;
+                letter-spacing: -0.5px;
+                color: #ffffff;
             }
 
-            .bio {
+            .username {
+                text-align: center;
+                color: rgba(255, 255, 255, 0.4);
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+                font-weight: 400;
+            }
+
+            .status-badge {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                padding: 0.7rem 1.2rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                font-size: 0.85rem;
                 color: rgba(255, 255, 255, 0.6);
-                font-size: 1rem;
-                font-weight: 300;
-                letter-spacing: 0.5px;
+            }
+
+            .status-dot {
+                width: 6px;
+                height: 6px;
+                background: #10b981;
+                border-radius: 50%;
+            }
+
+            .skills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
                 margin-bottom: 2rem;
             }
 
-            .badges {
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-                flex-wrap: wrap;
-            }
-
-            .badge {
-                padding: 0.5rem 1.2rem;
-                background: rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 50px;
+            .skill-tag {
+                padding: 0.5rem 0.9rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 6px;
                 font-size: 0.8rem;
-                font-weight: 600;
-                color: rgba(255, 255, 255, 0.8);
-                transition: all 0.3s;
-            }
-
-            .badge:hover {
-                background: rgba(120, 50, 255, 0.2);
-                border-color: rgba(120, 50, 255, 0.5);
-                transform: translateY(-2px);
-            }
-
-            /* Links Section */
-            .links {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .link-card {
-                background: rgba(255, 255, 255, 0.02);
-                backdrop-filter: blur(20px);
-                padding: 1.5rem 2rem;
-                border-radius: 20px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                text-decoration: none;
-                color: #ffffff;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                display: flex;
-                align-items: center;
-                gap: 1.5rem;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .link-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(135deg, rgba(120, 50, 255, 0.1), rgba(0, 255, 200, 0.1));
-                opacity: 0;
-                transition: opacity 0.3s;
-                border-radius: 20px;
-            }
-
-            .link-card:hover {
-                transform: translateY(-5px);
-                border-color: rgba(120, 50, 255, 0.5);
-                box-shadow: 0 20px 60px rgba(120, 50, 255, 0.3);
-            }
-
-            .link-card:hover::before {
-                opacity: 1;
-            }
-
-            .link-icon {
-                font-size: 2rem;
-                position: relative;
-                z-index: 1;
-                filter: drop-shadow(0 0 10px rgba(120, 50, 255, 0.5));
-                color: rgba(255, 255, 255, 0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .link-content {
-                flex: 1;
-                position: relative;
-                z-index: 1;
-            }
-
-            .link-title {
-                font-size: 1.1rem;
-                font-weight: 700;
-                margin-bottom: 0.3rem;
-                letter-spacing: -0.5px;
-            }
-
-            .link-desc {
-                font-size: 0.85rem;
                 color: rgba(255, 255, 255, 0.5);
-                font-weight: 300;
+                transition: all 0.3s ease;
             }
 
-            .link-arrow {
-                font-size: 1.2rem;
-                color: rgba(255, 255, 255, 0.3);
-                position: relative;
-                z-index: 1;
-                transition: all 0.3s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .link-card:hover .link-arrow {
+            .skill-tag:hover {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.15);
                 color: rgba(255, 255, 255, 0.8);
-                transform: translateX(5px);
-            }
-
-            .link-card:hover .link-icon {
-                color: rgba(255, 255, 255, 1);
-                filter: drop-shadow(0 0 15px rgba(120, 50, 255, 0.8));
             }
 
             /* Social Links */
-            .social-section {
-                margin-top: 3rem;
-                text-align: center;
-            }
-
-            .social-title {
-                font-size: 0.9rem;
-                color: rgba(255, 255, 255, 0.4);
-                font-weight: 600;
-                margin-bottom: 1.5rem;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-            }
-
             .social-links {
                 display: flex;
-                justify-content: center;
-                gap: 1rem;
-                flex-wrap: wrap;
+                gap: 0.8rem;
             }
 
             .social-link {
-                width: 50px;
-                height: 50px;
-                background: rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 15px;
+                flex: 1;
+                height: 45px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                color: rgba(255, 255, 255, 0.5);
+                transition: all 0.3s ease;
                 text-decoration: none;
-                font-size: 1.5rem;
-                color: rgba(255, 255, 255, 0.8);
-                transition: all 0.3s;
             }
 
             .social-link:hover {
-                background: rgba(120, 50, 255, 0.2);
-                border-color: rgba(120, 50, 255, 0.5);
-                box-shadow: 0 10px 30px rgba(120, 50, 255, 0.3);
-                transform: translateY(-5px);
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.15);
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            /* Right Content Area */
+            .content-area {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .section {
+                background: rgba(15, 15, 15, 0.4);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 12px;
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+            }
+
+            .section:hover {
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+                font-weight: 600;
+                margin-bottom: 1.2rem;
                 color: #ffffff;
+                letter-spacing: -0.3px;
+            }
+
+            .section-text {
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 0.95rem;
+                line-height: 1.7;
+                margin-bottom: 1rem;
+            }
+
+            .section-text:last-child {
+                margin-bottom: 0;
             }
 
             /* Music Control */
             .music-control {
                 position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 60px;
-                height: 60px;
-                background: rgba(120, 50, 255, 0.2);
-                backdrop-filter: blur(20px);
-                border: 2px solid rgba(120, 50, 255, 0.5);
+                bottom: 20px;
+                right: 20px;
+                width: 36px;
+                height: 36px;
+                background: rgba(15, 15, 15, 0.6);
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                transition: all 0.3s;
+                transition: all 0.3s ease;
                 z-index: 1000;
-                font-size: 1.5rem;
+                color: rgba(255, 255, 255, 0.3);
+                backdrop-filter: blur(10px);
             }
 
             .music-control:hover {
-                background: rgba(120, 50, 255, 0.3);
-                transform: scale(1.1);
-                box-shadow: 0 10px 30px rgba(120, 50, 255, 0.4);
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.2);
+                color: rgba(255, 255, 255, 0.6);
             }
 
             .music-control.playing {
-                animation: musicPulse 2s ease-in-out infinite;
-            }
-
-            @keyframes musicPulse {
-                0%, 100% { box-shadow: 0 0 20px rgba(120, 50, 255, 0.4); }
-                50% { box-shadow: 0 0 40px rgba(120, 50, 255, 0.8); }
-            }
-
-            /* Footer */
-            footer {
-                text-align: center;
-                margin-top: 3rem;
-                padding-top: 2rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-            }
-
-            footer p {
-                color: rgba(255, 255, 255, 0.3);
-                font-size: 0.85rem;
-                font-weight: 300;
+                color: rgba(255, 255, 255, 0.5);
             }
 
             /* Responsive */
+            @media (max-width: 1024px) {
+                .content-wrapper {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+
+                .profile-card {
+                    position: relative;
+                    top: 0;
+                }
+
+                .entry-text {
+                    font-size: 2.5rem;
+                }
+            }
+
             @media (max-width: 768px) {
                 .container {
-                    width: 95%;
+                    padding: 1rem;
+                }
+
+                .profile-card {
+                    padding: 2rem;
+                }
+
+                .avatar-container {
+                    width: 140px;
+                    height: 140px;
+                }
+
+                .avatar {
+                    width: 140px;
+                    height: 140px;
                 }
 
                 .name {
                     font-size: 2rem;
                 }
 
-                .link-card {
-                    padding: 1.2rem 1.5rem;
+                .section {
+                    padding: 1.5rem;
                 }
 
-                .link-icon {
+                .section-title {
                     font-size: 1.5rem;
                 }
             }
         </style>
     </head>
     <body>
+        <div class="grid-bg"></div>
+        <div class="scan-line"></div>
+        <div class="glow-orb" style="top: 30%; left: 30%;"></div>
+
         <!-- Entry Overlay -->
         <div class="entry-overlay" id="entry-overlay">
-            <div class="entry-text">Welcome</div>
-            <div class="entry-subtext">Click to enter site</div>
+            <div class="entry-text">ALISDAIR</div>
+            <div class="entry-subtext">Click anywhere to enter</div>
         </div>
 
-        <div class="main-content" id="main-content">
-            <div class="bg-animation"></div>
-            <div class="orb orb1"></div>
-            <div class="orb orb2"></div>
-            <div class="orb orb3"></div>
-
-            <!-- Music Control Button -->
-            <div id="music-control" class="music-control" title="Click to play music">
-                🎵
-            </div>
-
-            <!-- Background Music -->
-            <div id="music-player" style="position: fixed; bottom: -100px; right: -100px; z-index: -1;">
-                <iframe id="youtube-player" width="0" height="0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-
-            <div class="container">
-            <!-- Profile Section -->
-            <div class="profile">
-                <div class="avatar">
-                    <img src="https://cdn.discordapp.com/avatars/947510375539155024/662650944fdfe84ee54f41ab7a3961e3.webp?size=512" alt="Profile Avatar">
-                </div>
-                <h1 class="name">Alisdair</h1>
-                <p class="bio">VR Unity Developer & 3D Modeler</p>
-                <div class="badges">
-                    <span class="badge">VR Developer</span>
-                    <span class="badge">Game Designer</span>
-                    <span class="badge">Tech Enthusiast</span>
-                </div>
-            </div>
-
-            <!-- Main Links -->
-            <div class="links">
-                <a href="https://spirestudios.online/" class="link-card" target="_blank">
-                    <div class="link-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                        </svg>
-                    </div>
-                    <div class="link-content">
-                        <div class="link-title">Spire Studios</div>
-                        <div class="link-desc">Immersive VR Games, straight to your Meta device.</div>
-                    </div>
-                    <div class="link-arrow">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </div>
-                </a>
-
-                <a href="https://spirestudios.online/#games" class="link-card" target="_blank">
-                    <div class="link-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                    </div>
-                    <div class="link-content">
-                        <div class="link-title">Current Projects</div>
-                        <div class="link-desc">My current projects & goals.</div>
-                    </div>
-                    <div class="link-arrow">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Social Links -->
-            <div class="social-section">
-                <div class="social-title">Socials</div>
-                <div class="social-links">
-                    <a href="https://discord.gg/ABnhsn7pQs" class="social-link" target="_blank" title="Discord Server">
-                        <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor">
-                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-                        </svg>
-                    </a>
-                    <a href="mailto:contact@spirestudios.online?" class="social-link" target="_blank" title="Email">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <footer>
-                <p>© 2025 Spire Studios. All rights reserved.</p>
-                Site Hosted by <a style="text-decoration: none; color: gray;" href="https://temp.spirestudios.online/">Temporary Studios</a>
-            </footer>
+        <!-- Music Control -->
+        <div id="music-control" class="music-control" title="Toggle music">
+            <svg id="music-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            </svg>
         </div>
+
+        <!-- Background Music Player -->
+        <div id="music-player" style="position: fixed; bottom: -100px; right: -100px; z-index: -1;">
+            <iframe id="youtube-player" width="0" height="0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Left Profile Card -->
+                <div class="profile-card">
+                    <div class="avatar-container">
+                        <div class="avatar-glow"></div>
+                        <div class="avatar">
+                            <img src="https://media.discordapp.net/attachments/1370833499677790308/1441735320046669944/pfp_5.png?ex=6922e026&is=69218ea6&hm=6e517468237c3915e570b2ec5d3c9a18dd628c1e96c78b73dc14d30b52417d83&=&format=webp&quality=lossless" alt="Alisdair">
+                        </div>
+                    </div>
+
+                    <h1 class="name">Alisdair</h1>
+                    <div class="username">@alisdair_dev</div>
+
+                    <div class="status-badge">
+                        <div class="status-dot"></div>
+                        <span>Available for Projects</span>
+                    </div>
+
+                    <div class="skills">
+                        <span class="skill-tag">Unity VR</span>
+                        <span class="skill-tag">C# Developer</span>
+                        <span class="skill-tag">3D Modeling</span>
+                        <span class="skill-tag">Game Design</span>
+                        <span class="skill-tag">Meta Quest</span>
+                        <span class="skill-tag">Blender</span>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://discord.gg/ABnhsn7pQs" class="social-link" target="_blank" title="Discord">
+                            <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor">
+                                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:contact@spirestudios.online" class="social-link" target="_blank" title="Email">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Content Area -->
+                <div class="content-area">
+                    <div class="section">
+                        <h2 class="section-title">About Me</h2>
+                        <p class="section-text">
+                            I'm a VR developer and 3D artist specializing in immersive experiences for Meta Quest devices. 
+                            With a deep passion for virtual reality, I create seamless, intuitive games that push the boundaries 
+                            of what's possible in standalone VR.
+                        </p>
+                        <p class="section-text">
+                            My expertise spans Unity development, C# programming, and 3D modeling in Blender. I handle every aspect 
+                            of VR game development—from initial concept and mechanics coding to environment design, performance 
+                            optimization, and final polish.
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Current Work</h2>
+                        <p class="section-text">
+                            Currently developing multiple VR titles under Spire Studios, exploring innovative ways to make virtual 
+                            reality more accessible and engaging for players worldwide. My focus is on creating experiences that feel 
+                            natural and alive—worlds you want to step into and never leave.
+                        </p>
+                        <p class="section-text">
+                            I'm always experimenting with new techniques, pushing performance boundaries, and finding creative solutions 
+                            to the unique challenges that VR development presents.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script>
-            // Array of YouTube video IDs
+            // Music system
             const songs = [
-                'em934mwdrlA',
-                'OdoOjIPhTh8',
-                'DyfTybEBQT0',
-                'kK0Vd3daL_o',
-                'cfeg_fv5H2g',
-                'vYQwqe3w9Ug',
-                'mqEZcXdtAUA',
-                'KB5TKob9PeA',
-                'hs57himZrfc'
+                'em934mwdrlA', 'OdoOjIPhTh8', 'DyfTybEBQT0',
+                'kK0Vd3daL_o', 'cfeg_fv5H2g', 'vYQwqe3w9Ug',
+                'mqEZcXdtAUA', 'KB5TKob9PeA', 'hs57himZrfc'
             ];
-
-            // Select a random song
             const randomSong = songs[Math.floor(Math.random() * songs.length)];
-            
             const player = document.getElementById('youtube-player');
             const musicControl = document.getElementById('music-control');
+            const musicIcon = document.getElementById('music-icon');
             const entryOverlay = document.getElementById('entry-overlay');
-            const mainContent = document.getElementById('main-content');
             let isPlaying = false;
 
-            // Entry overlay click handler
             entryOverlay.addEventListener('click', function() {
-                // Hide overlay
                 entryOverlay.classList.add('hidden');
-                
-                // Start music
                 player.src = `https://www.youtube.com/embed/${randomSong}?autoplay=1&loop=1&playlist=${randomSong}`;
-                musicControl.textContent = '🔊';
+                musicIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>';
                 musicControl.classList.add('playing');
-                musicControl.title = 'Music playing - Click to stop';
                 isPlaying = true;
             });
 
-            // Music control button
             musicControl.addEventListener('click', function() {
                 if (!isPlaying) {
                     player.src = `https://www.youtube.com/embed/${randomSong}?autoplay=1&loop=1&playlist=${randomSong}`;
-                    musicControl.textContent = '🔊';
+                    musicIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>';
                     musicControl.classList.add('playing');
-                    musicControl.title = 'Music playing';
                     isPlaying = true;
                 } else {
                     player.src = '';
-                    musicControl.textContent = '🎵';
+                    musicIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
                     musicControl.classList.remove('playing');
-                    musicControl.title = 'Click to play music';
                     isPlaying = false;
                 }
             });
+
+            // Animated glow orb follows cursor subtly
+            const orb = document.querySelector('.glow-orb');
+            let targetX = window.innerWidth / 2;
+            let targetY = window.innerHeight / 2;
+            let currentX = targetX;
+            let currentY = targetY;
+
+            document.addEventListener('mousemove', (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+            });
+
+            function animateOrb() {
+                currentX += (targetX - currentX) * 0.05;
+                currentY += (targetY - currentY) * 0.05;
+                orb.style.left = currentX + 'px';
+                orb.style.top = currentY + 'px';
+                requestAnimationFrame(animateOrb);
+            }
+            animateOrb();
         </script>
     </body>
-
 </html>
