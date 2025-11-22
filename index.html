@@ -19,63 +19,38 @@
                 color: #ffffff;
                 line-height: 1.6;
                 overflow-x: hidden;
+                position: relative;
             }
 
-            /* Animated Grid Background */
-            .grid-bg {
+            /* Background Image */
+            body::before {
+                content: '';
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-image: 
-                    linear-gradient(rgba(60, 60, 60, 0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(60, 60, 60, 0.05) 1px, transparent 1px);
-                background-size: 80px 80px;
-                z-index: -2;
-                animation: gridScroll 80s linear infinite;
+                background-image: url('https://cdn.discordapp.com/banners/947510375539155024/eb945f45221bb5de7980a4a755b2e67e?size=4096');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                filter: brightness(0.4);
+                z-index: -3;
             }
 
-            @keyframes gridScroll {
-                0% { transform: translate(0, 0); }
-                100% { transform: translate(80px, 80px); }
+            /* Animated Grid Background */
+            .grid-bg {
+                display: none;
             }
 
             /* Scanning line effect */
             .scan-line {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 1px;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-                z-index: 9999;
-                animation: scan 12s linear infinite;
-            }
-
-            @keyframes scan {
-                0% { transform: translateY(0); opacity: 0; }
-                10% { opacity: 0.5; }
-                90% { opacity: 0.5; }
-                100% { transform: translateY(100vh); opacity: 0; }
+                display: none;
             }
 
             /* Glowing orb */
             .glow-orb {
-                position: fixed;
-                width: 600px;
-                height: 600px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(60, 60, 80, 0.08), transparent 70%);
-                filter: blur(60px);
-                pointer-events: none;
-                z-index: -1;
-                animation: orbFloat 40s ease-in-out infinite;
-            }
-
-            @keyframes orbFloat {
-                0%, 100% { transform: translate(-50%, -50%) scale(1); }
-                50% { transform: translate(-40%, -40%) scale(1.1); }
+                display: none;
             }
 
             /* Entry Overlay */
@@ -85,15 +60,15 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(10, 10, 10, 0.97);
-                backdrop-filter: blur(10px);
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(20px);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 z-index: 10000;
                 cursor: pointer;
-                transition: opacity 1.5s ease, visibility 1.5s ease;
+                transition: opacity 1s ease, visibility 1s ease;
             }
 
             .entry-overlay.hidden {
@@ -103,7 +78,7 @@
             }
 
             .entry-text {
-                font-size: 2rem;
+                font-size: 2.5rem;
                 font-weight: 600;
                 color: #ffffff;
                 margin-bottom: 1rem;
@@ -111,8 +86,8 @@
             }
 
             .entry-subtext {
-                font-size: 0.9rem;
-                color: rgba(255, 255, 255, 0.4);
+                font-size: 0.95rem;
+                color: rgba(255, 255, 255, 0.5);
                 font-weight: 300;
             }
 
@@ -136,13 +111,15 @@
 
             /* Left Profile Card */
             .profile-card {
-                background: rgba(15, 15, 15, 0.5);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 20px;
                 padding: 2.5rem;
-                backdrop-filter: blur(10px);
+                backdrop-filter: blur(30px) saturate(180%);
+                -webkit-backdrop-filter: blur(30px) saturate(180%);
                 position: sticky;
                 top: 2rem;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             }
 
             .avatar-container {
@@ -162,7 +139,8 @@
                 height: 160px;
                 border-radius: 50%;
                 overflow: hidden;
-                border: 2px solid rgba(255, 255, 255, 0.1);
+                border: 3px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
                 z-index: 1;
             }
 
@@ -173,17 +151,18 @@
             }
 
             .name {
-                font-size: 1.8rem;
+                font-size: 1.9rem;
                 font-weight: 600;
                 text-align: center;
                 margin-bottom: 0.3rem;
                 letter-spacing: -0.5px;
                 color: #ffffff;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             }
 
             .username {
                 text-align: center;
-                color: rgba(255, 255, 255, 0.4);
+                color: rgba(255, 255, 255, 0.6);
                 font-size: 0.95rem;
                 margin-bottom: 2rem;
                 font-weight: 400;
@@ -195,12 +174,13 @@
                 justify-content: center;
                 gap: 0.5rem;
                 padding: 0.7rem 1.2rem;
-                background: rgba(255, 255, 255, 0.03);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
                 margin-bottom: 2rem;
                 font-size: 0.85rem;
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(255, 255, 255, 0.9);
             }
 
             .status-dot {
@@ -208,6 +188,7 @@
                 height: 6px;
                 background: #10b981;
                 border-radius: 50%;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
             }
 
             .skills {
@@ -219,18 +200,20 @@
 
             .skill-tag {
                 padding: 0.5rem 0.9rem;
-                background: rgba(255, 255, 255, 0.03);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: 6px;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 8px;
                 font-size: 0.8rem;
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.9);
                 transition: all 0.3s ease;
             }
 
             .skill-tag:hover {
-                background: rgba(255, 255, 255, 0.05);
-                border-color: rgba(255, 255, 255, 0.15);
-                color: rgba(255, 255, 255, 0.8);
+                background: rgba(255, 255, 255, 0.15);
+                border-color: rgba(255, 255, 255, 0.3);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             }
 
             /* Social Links */
@@ -241,22 +224,24 @@
 
             .social-link {
                 flex: 1;
-                height: 45px;
-                background: rgba(255, 255, 255, 0.03);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: 8px;
+                height: 50px;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.9);
                 transition: all 0.3s ease;
                 text-decoration: none;
             }
 
             .social-link:hover {
-                background: rgba(255, 255, 255, 0.05);
-                border-color: rgba(255, 255, 255, 0.15);
-                color: rgba(255, 255, 255, 0.8);
+                background: rgba(255, 255, 255, 0.15);
+                border-color: rgba(255, 255, 255, 0.3);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             }
 
             /* Right Content Area */
@@ -267,28 +252,33 @@
             }
 
             .section {
-                background: rgba(15, 15, 15, 0.4);
-                border: 1px solid rgba(255, 255, 255, 0.06);
-                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.08);
+                backdrop-filter: blur(30px) saturate(180%);
+                -webkit-backdrop-filter: blur(30px) saturate(180%);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 20px;
                 padding: 2rem;
-                backdrop-filter: blur(10px);
                 transition: all 0.3s ease;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             }
 
             .section:hover {
-                border-color: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.25);
+                transform: translateY(-2px);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
             }
 
             .section-title {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
                 font-weight: 600;
                 margin-bottom: 1.2rem;
                 color: #ffffff;
                 letter-spacing: -0.3px;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             }
 
             .section-text {
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.85);
                 font-size: 0.95rem;
                 line-height: 1.7;
                 margin-bottom: 1rem;
@@ -301,12 +291,13 @@
             /* Music Control */
             .music-control {
                 position: fixed;
-                bottom: 20px;
-                right: 20px;
-                width: 36px;
-                height: 36px;
-                background: rgba(15, 15, 15, 0.6);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                bottom: 24px;
+                right: 24px;
+                width: 44px;
+                height: 44px;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
@@ -314,18 +305,19 @@
                 cursor: pointer;
                 transition: all 0.3s ease;
                 z-index: 1000;
-                color: rgba(255, 255, 255, 0.3);
-                backdrop-filter: blur(10px);
+                color: rgba(255, 255, 255, 0.7);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
 
             .music-control:hover {
-                background: rgba(255, 255, 255, 0.05);
-                border-color: rgba(255, 255, 255, 0.2);
-                color: rgba(255, 255, 255, 0.6);
+                background: rgba(255, 255, 255, 0.15);
+                border-color: rgba(255, 255, 255, 0.3);
+                color: rgba(255, 255, 255, 0.9);
+                transform: scale(1.05);
             }
 
             .music-control.playing {
-                color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.9);
             }
 
             /* Responsive */
@@ -379,10 +371,6 @@
         </style>
     </head>
     <body>
-        <div class="grid-bg"></div>
-        <div class="scan-line"></div>
-        <div class="glow-orb" style="top: 30%; left: 30%;"></div>
-
         <!-- Entry Overlay -->
         <div class="entry-overlay" id="entry-overlay">
             <div class="entry-text">ALISDAIR</div>
@@ -391,7 +379,7 @@
 
         <!-- Music Control -->
         <div id="music-control" class="music-control" title="Toggle music">
-            <svg id="music-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg id="music-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             </svg>
         </div>
@@ -510,27 +498,6 @@
                     isPlaying = false;
                 }
             });
-
-            // Animated glow orb follows cursor subtly
-            const orb = document.querySelector('.glow-orb');
-            let targetX = window.innerWidth / 2;
-            let targetY = window.innerHeight / 2;
-            let currentX = targetX;
-            let currentY = targetY;
-
-            document.addEventListener('mousemove', (e) => {
-                targetX = e.clientX;
-                targetY = e.clientY;
-            });
-
-            function animateOrb() {
-                currentX += (targetX - currentX) * 0.05;
-                currentY += (targetY - currentY) * 0.05;
-                orb.style.left = currentX + 'px';
-                orb.style.top = currentY + 'px';
-                requestAnimationFrame(animateOrb);
-            }
-            animateOrb();
         </script>
     </body>
 </html>
